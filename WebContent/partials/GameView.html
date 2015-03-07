@@ -1,0 +1,49 @@
+
+<!-- Main group -->
+<div id="mainGameViewGroup">
+
+	<!-- Cards Stack -->
+	<div class="cards-stack" >
+   		<div ng-repeat="card in model.cardsStack.getCardsStack()" >
+	 		<span class="card-name">{{ card.name }}</span>
+      	</div>
+	</div>
+	
+	<!-- Dealer -->
+	<div class="panel panel-warning" style="width: 300px;">
+		<div class="panel-heading">
+			<h3 class="panel-title">Dealer</h3>
+		</div>
+		<div class="panel-body">
+		
+			<!-- Cards -->
+			<div class="cards-in-hand" ng-repeat="card in model.dealer.getPlayerCards()">{{ card.getCardLabel() }}</div>
+			
+		</div>
+	</div>
+	
+	<br/><br/><br/><br/>
+	
+	<!-- Players group -->
+	<div ng-repeat="player in model.players.getPlayersGroup()">
+		<div class="panel panel-info" style="width: 300px;">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{ player.getPlayerName() }}</h3>
+            </div>
+            <div class="panel-body">
+              
+              <!-- Cards -->
+              <div class="cards-in-hand" ng-repeat="card in player.getPlayerCards()">{{ card.getCardLabel() }}</div>
+              
+              <button type="button" class="btn btn-sm btn-success" ng-disabled="!player.isHitEnabled()" ng-click="hitActionHandler( player )">Hit</button>
+              <button type="button" class="btn btn-sm btn-warning" ng-disabled="!player.isStickEnabled()" ng-click="stickActionHandler( player )">Stick</button>
+              
+              <button type="button" class="btn btn-sm btn-danger" ng-click="quitActionHandler( player )">Quit</button>
+              
+            </div>
+          </div>
+	</div>
+	
+
+</div>
+
