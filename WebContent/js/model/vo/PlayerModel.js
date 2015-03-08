@@ -84,6 +84,16 @@ PlayerModel.prototype.getPlayerCards = function()
  */
 PlayerModel.prototype.getPlayerName = function()
 {
+	if( !this.playerID )
+	{
+		return "Dealer";
+	}
+	else
+		return "Player " + this.playerID;
+};
+
+PlayerModel.prototype.getPlayerID = function()
+{
 	return this.playerID;
 };
 
@@ -113,12 +123,6 @@ PlayerModel.prototype.didLoseHappen = function()
 PlayerModel.prototype.isRoundOver = function()
 {
 	return this.win || this.lose;
-};
-
-
-PlayerModel.prototype.getPlayerID = function()
-{
-	return this.playerID;
 };
 
 PlayerModel.prototype.getCardCount = function()

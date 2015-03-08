@@ -21,22 +21,22 @@ GameFlowController.prototype.startNewGame = function()
 {
 	// create game objects
 	this.model.cardsStack = new CardsStack();
-	this.model.players = new ParticipatingPlayersModel();
-	this.model.dealer = new PlayerModel( "Dealer" );
+	this.model.players = new ParticipatingPlayersModel( this.appModel.MAX_PLAYERS_NUMBER );
+	this.model.dealer = new PlayerModel( 0 );
 	
 	// Local vars references for convenience
 	var cardsStack = this.model.cardsStack;
 	var players = this.model.players;
 	var dealer = this.model.dealer;
 	
-	players.addPlayer( new PlayerModel( "Player1" ) );
-	players.addPlayer( new PlayerModel( "Player2" ) );
+	players.addPlayer();
+	players.addPlayer();
 	
 
 	this.startGameRound();
 	
 	// TODO: check this
-	this.$rootScope.safeApplyPlain();
+//	this.$rootScope.safeApplyPlain();
 };
 
 
@@ -169,7 +169,7 @@ GameFlowController.prototype.checkDealersScore = function()
 	// check if got BlackJack on first 2 cards
 	if( dealersScore === this.appModel.BLACK_JACK_SCORE && this.model.dealer.getCardCount() == 2 )
 	{
-		this.setAllPlayersResultToLose();
+		this.model.players.setAllPlayersResultToLose();
 		
 		console.log( "DEALER got - BlackJack!!!" );
 		
@@ -189,9 +189,9 @@ GameFlowController.prototype.checkPlayerScore = function( inputPlayer )
 
 	if( playersScore > this.appModel.BLACK_JACK_SCORE )
 	{
-		console.log( inputPlayer.getPlayerID() + " score: " + playersScore );
+		console.log( inputPlayer.getPlayerName() + " score: " + playersScore );
 		
-		console.log( inputPlayer.getPlayerID() + " busting.." );
+		console.log( inputPlayer.getPlayerName() + " busting.." );
 		
 		inputPlayer.lose = true;
 		
@@ -200,12 +200,12 @@ GameFlowController.prototype.checkPlayerScore = function( inputPlayer )
 	}
 	else if( playersScore === this.appModel.BLACK_JACK_SCORE )
 	{
-		console.log( inputPlayer.getPlayerID() + " score: " + playersScore );
+		console.log( inputPlayer.getPlayerName() + " score: " + playersScore );
 		
 		// Check for BlackJack on first 2 cards
 		if( inputPlayer.getCardCount() == 2 )
 		{
-			console.log( inputPlayer.getPlayerID() + " got - BlackJack!!!" );
+			console.log( inputPlayer.getPlayerName() + " got - BlackJack!!!" );
 			
 			inputPlayer.win = true;
 		}
@@ -248,13 +248,13 @@ GameFlowController.prototype.checkAllParticipantsScore = function()
 		currentPlayer = players[ i ];
 		playersScore = currentPlayer.getCurrentCardsScore();
 		
-		console.log( currentPlayer.getPlayerID() + " score: " + playersScore );
+		console.log( currentPlayer.getPlayerName() + " score: " + playersScore );
 		
 		// if the player got more scores than the dealer, but player
 		// didn't get "busting" before
 		if( playersScore > dealersScore && !currentPlayer.lose )
 		{
-			console.log( currentPlayer.getPlayerID() + " WIN!" );
+			console.log( currentPlayer.getPlayerName() + " WIN!" );
 			
 			currentPlayer.win = true;
 		}
@@ -262,7 +262,7 @@ GameFlowController.prototype.checkAllParticipantsScore = function()
 		// didn't get WIN or LOSE result before
 		else if( dealersScore > playersScore && !currentPlayer.isRoundOver() )
 		{
-			console.log( currentPlayer.getPlayerID() + " LOSE!" );
+			console.log( currentPlayer.getPlayerName() + " LOSE!" );
 			
 			currentPlayer.lose = true;
 		}

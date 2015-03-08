@@ -1,8 +1,10 @@
 
 // Construct
-var ParticipatingPlayersModel = function()
+var ParticipatingPlayersModel = function( MAX_PLAYERS_NUMBER )
 {
 	this.players = [];
+	
+	this.MAX_PLAYERS_NUMBER = MAX_PLAYERS_NUMBER;
 };
 
 ParticipatingPlayersModel.prototype.getStartingPlayer = function()
@@ -45,9 +47,26 @@ ParticipatingPlayersModel.prototype.deletePlayer = function( playerToDelete )
 /**
  * Add new player into the game.
  */
-ParticipatingPlayersModel.prototype.addPlayer = function( inputPlayer )
+ParticipatingPlayersModel.prototype.addPlayer = function()
 {
-    this.players.push( inputPlayer );
+	if( this.players.length + 1 <= this.MAX_PLAYERS_NUMBER )
+	{
+		var maxPlayerID = 0;
+		
+		var currentPlayer;
+		
+		// get max player ID
+		for( var i in this.players )
+		{
+			currentPlayer = this.players[ i ];
+			
+			if( currentPlayer.getPlayerID() > maxPlayerID )
+				maxPlayerID = currentPlayer.getPlayerID();
+		}
+		
+		// create new player with the ID = ++maxPlayerID
+		this.players.push( new PlayerModel( ++maxPlayerID ) );
+	}
 };
 
 /**

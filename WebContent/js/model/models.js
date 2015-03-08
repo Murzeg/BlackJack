@@ -7,6 +7,9 @@ BlackJack.service( "applicationModel", [ '$rootScope', function( $rootScope )
 	// Const
 	this.BLACK_JACK_SCORE = 21;
 	this.DEALERS_MAX_CARD_SCORE = 17;
+	
+	// Max players count
+	this.MAX_PLAYERS_NUMBER = 4;
 
 
 //	this.saveUseAI = function()
