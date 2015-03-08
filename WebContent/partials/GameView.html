@@ -12,7 +12,7 @@
 		</div>
 		
 		<!-- Dealer -->
-		<div class="panel panel-warning absolute-horontal-center dealer-group" style="width: 300px;">
+		<div class="panel panel-warning absolute-horontal-center dealer-group">
 			<div class="panel-heading">
 				<h3 class="panel-title">Dealer</h3>
 			</div>
@@ -37,7 +37,7 @@
 	<!-- Players group -->
 	<div class="player-group" ng-repeat="player in model.players.getPlayersGroup()">
 		
-		<div class="alert alert-{{ player.didWinHappen() ? 'success' : 'danger' }}" style="width: 300px;" ng-show="player.didWinHappen() || player.didLoseHappen()" role="alert">
+		<div class="alert alert-{{ player.didWinHappen() ? 'success' : 'danger' }}" ng-show="player.didWinHappen() || player.didLoseHappen()" role="alert">
         	<strong>You {{ player.didWinHappen() ? 'WIN' : 'LOSE' }}!</strong>
       	</div>
       	
@@ -47,7 +47,7 @@
       	</div>
 		-->
 		
-		<div class="panel panel-info" style="width: 300px;">
+		<div class="panel panel-info"">
             <div class="panel-heading">
               <h3 class="panel-title">{{ player.getPlayerName() }}</h3>
             </div>
@@ -58,13 +58,15 @@
 				
 					<!-- Cards -->
               		<div class="card-item" ng-repeat="card in player.getPlayerCards()" ng-bind="card.getCardLabel()|decode"></div>
-              
-					<button type="button" class="btn btn-sm btn-success" ng-disabled="!player.isHitEnabled()" ng-click="hitActionHandler( player )">Hit</button>
-              		<button type="button" class="btn btn-sm btn-warning" ng-disabled="!player.isStickEnabled()" ng-click="stickActionHandler( player )">Stick</button>
-              
-              		<button type="button" class="btn btn-sm btn-danger" ng-click="quitActionHandler( player )">Quit</button>
 					
 				</div>
+				
+				<!-- Controls (using super old <center> tag temporary) -->
+				<center class="control-buttons-group">
+					<button type="button" class="btn btn-sm btn-success" ng-disabled="!player.isHitEnabled()" ng-click="hitActionHandler( player )">Hit</button>
+	             	<button type="button" class="btn btn-sm btn-warning" ng-disabled="!player.isStickEnabled()" ng-click="stickActionHandler( player )">Stick</button>
+    	         	<button type="button" class="btn btn-sm btn-danger" ng-click="quitActionHandler( player )">Quit</button>
+    	        </center>
               
             </div>
           </div>
