@@ -16,10 +16,14 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">Dealer</h3>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body ">
 			
-				<!-- Cards -->
-				<div class="cards-in-hand" ng-repeat="card in model.dealer.getPlayerCards()">{{ card.getCardLabel() }}</div>
+				<!-- Player's Hand -->
+				<div class="cards-holder">
+				
+					<!-- Cards -->
+					<div class="card-item" ng-repeat="card in model.dealer.getPlayerCards()">{{ card.getCardLabel() }}</div>
+				</div>
 				
 			</div>
 		</div>
@@ -49,13 +53,18 @@
             </div>
             <div class="panel-body">
               
-              <!-- Cards -->
-              <div class="cards-in-hand" ng-repeat="card in player.getPlayerCards()">{{ card.getCardLabel() }}</div>
+              <!-- Player's Hand -->
+				<div class="cards-holder">
+				
+					<!-- Cards -->
+              		<div class="card-item" ng-repeat="card in player.getPlayerCards()">{{ card.getCardLabel() }}</div>
               
-              <button type="button" class="btn btn-sm btn-success" ng-disabled="!player.isHitEnabled()" ng-click="hitActionHandler( player )">Hit</button>
-              <button type="button" class="btn btn-sm btn-warning" ng-disabled="!player.isStickEnabled()" ng-click="stickActionHandler( player )">Stick</button>
+					<button type="button" class="btn btn-sm btn-success" ng-disabled="!player.isHitEnabled()" ng-click="hitActionHandler( player )">Hit</button>
+              		<button type="button" class="btn btn-sm btn-warning" ng-disabled="!player.isStickEnabled()" ng-click="stickActionHandler( player )">Stick</button>
               
-              <button type="button" class="btn btn-sm btn-danger" ng-click="quitActionHandler( player )">Quit</button>
+              		<button type="button" class="btn btn-sm btn-danger" ng-click="quitActionHandler( player )">Quit</button>
+					
+				</div>
               
             </div>
           </div>
