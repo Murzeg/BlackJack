@@ -28,6 +28,18 @@ ParticipatingPlayersModel.prototype.getNextToPlayer = function( currentPlayer )
 		return null;
 };
 
+ParticipatingPlayersModel.prototype.getNextAvailablePlayer = function( currentPlayer )
+{
+	var playerIndex = this.players.indexOf( currentPlayer );
+	
+	if( ++playerIndex < this.players.length )
+	{
+		return this.players[ playerIndex ];
+	}
+	else
+		return this.players[ playerIndex - 2 ];
+};
+
 
 ParticipatingPlayersModel.prototype.deletePlayer = function( playerToDelete )
 {

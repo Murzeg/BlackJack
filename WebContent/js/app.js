@@ -1,6 +1,6 @@
 
 
-var BlackJack = angular.module( 'BlackJackApp', [ 'ngRoute', 'ngAnimate' ]);
+var BlackJack = angular.module( 'BlackJackApp', [ 'ngRoute' ]);
 
 // --- Filter --- //
 // Added decode filter to be able to show HTML-encoded symbols for the card suits

@@ -328,6 +328,17 @@ GameFlowController.prototype.stickActionHandler = function( inputPlayer )
  */
 GameFlowController.prototype.quitActionHandler = function( inputPlayer )
 {
+	var players = this.model.players;
+	
+	if( inputPlayer.isActive )
+	{
+		// set next or previous player to be active instead
+		// of the current one
+		var nextPlayer = players.getNextAvailablePlayer( inputPlayer );
+		
+		this.setActivePlayer( nextPlayer );
+	}
+	
 	this.model.players.deletePlayer( inputPlayer );
 };
 
@@ -339,13 +350,5 @@ GameFlowController.prototype.quitActionHandler = function( inputPlayer )
 GameFlowController.prototype.addNewPlayer = function()
 {
 	this.model.players.addPlayer();
-};
-
-
-
-
-GameFlowController.prototype.continuePlaying = function()
-{
-	
 };
 
