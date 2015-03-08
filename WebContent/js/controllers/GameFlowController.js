@@ -7,9 +7,10 @@ var GameFlowController = function( $rootScope, model, appModel, $timeout, $inter
 	this.appModel = appModel;
 	
 	this.$rootScope = $rootScope;
+	
+	// TODO: added for animation delays 
 	this.$timeout = $timeout;
 	this.$interval = $interval;
-
 };
 
 
@@ -44,6 +45,8 @@ GameFlowController.prototype.startNewGame = function()
  */
 GameFlowController.prototype.startGameRound = function()
 {
+	console.log( "========= New Round =========" );
+	
 	// Local vars references for convenience
 	var cardsStack = this.model.cardsStack;
 	var players = this.model.players.getPlayersGroup();
@@ -186,6 +189,8 @@ GameFlowController.prototype.checkPlayerScore = function( inputPlayer )
 
 	if( playersScore > this.appModel.BLACK_JACK_SCORE )
 	{
+		console.log( inputPlayer.getPlayerID() + " score: " + playersScore );
+		
 		console.log( inputPlayer.getPlayerID() + " busting.." );
 		
 		inputPlayer.lose = true;
@@ -195,6 +200,8 @@ GameFlowController.prototype.checkPlayerScore = function( inputPlayer )
 	}
 	else if( playersScore === this.appModel.BLACK_JACK_SCORE )
 	{
+		console.log( inputPlayer.getPlayerID() + " score: " + playersScore );
+		
 		// Check for BlackJack on first 2 cards
 		if( inputPlayer.getCardCount() == 2 )
 		{
@@ -222,29 +229,38 @@ GameFlowController.prototype.checkAllParticipantsScore = function()
 	
 	var dealersScore = this.model.dealer.getCurrentCardsScore();
 	
+	console.log( "dealer score: " + dealersScore );
+	
+	// we are not checking for dealer's BlackJack here,
+	// it was done before in "checkDealersScore" method
+	
+	// if dealer "busting"
+	if( dealersScore > this.appModel.BLACK_JACK_SCORE )
+	{
+		console.log( "DEALER busting.." );
+		
+		this.model.players.setAllAvailablePlayersResultToWin();
+	}
+	
 	// compare each player's score with the dealer's score
 	for( var i in players )
 	{
 		currentPlayer = players[ i ];
 		playersScore = currentPlayer.getCurrentCardsScore();
 		
-		// we are not checking for dealer's BlackJack here,
-		// it was done before in "checkDealersScore" method
+		console.log( currentPlayer.getPlayerID() + " score: " + playersScore );
 		
-		// if dealer "busting"
-		if( dealersScore > this.appModel.BLACK_JACK_SCORE )
-		{
-			console.log( "DEALER busting.." );
-			
-			this.model.players.setAllAvailablePlayersResultToWin();
-		}
-		else if( playersScore > dealersScore )
+		// if the player got more scores than the dealer, but player
+		// didn't get "busting" before
+		if( playersScore > dealersScore && !currentPlayer.lose )
 		{
 			console.log( currentPlayer.getPlayerID() + " WIN!" );
 			
 			currentPlayer.win = true;
 		}
-		else if( dealersScore > playersScore )
+		// if the dealer got more scores than the player, but if player
+		// didn't get WIN or LOSE result before
+		else if( dealersScore > playersScore && !currentPlayer.isRoundOver() )
 		{
 			console.log( currentPlayer.getPlayerID() + " LOSE!" );
 			
