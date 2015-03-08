@@ -69,6 +69,12 @@ ParticipatingPlayersModel.prototype.addPlayer = function()
 	}
 };
 
+
+ParticipatingPlayersModel.prototype.wasMaximumPlayersCountReached = function()
+{
+	return this.players.length == this.MAX_PLAYERS_NUMBER;
+};
+
 /**
  * @returns {Array} Participating players list.
  */

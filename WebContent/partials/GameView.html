@@ -61,7 +61,7 @@
 	</div>
 	
 	<!-- Add new player -->
-	<button type="button" class="btn btn-lg btn-warning" ng-click="addNewPlayer()">Add player</button>
+	<button type="button" class="btn btn-lg btn-warning" ng-disabled="model.roundInProgress || model.players.wasMaximumPlayersCountReached()" ng-click="addNewPlayer()">Add player</button>
 	
 </div>
 

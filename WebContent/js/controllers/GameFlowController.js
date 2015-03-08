@@ -29,13 +29,14 @@ GameFlowController.prototype.startNewGame = function()
 	var players = this.model.players;
 	var dealer = this.model.dealer;
 	
-	players.addPlayer();
-	players.addPlayer();
 	
+	// add 2 default players 
+	players.addPlayer();
+	players.addPlayer();
 
 	this.startGameRound();
 	
-	// TODO: check this
+	// TODO: disabled
 //	this.$rootScope.safeApplyPlain();
 };
 
@@ -337,7 +338,7 @@ GameFlowController.prototype.quitActionHandler = function( inputPlayer )
  */
 GameFlowController.prototype.addNewPlayer = function()
 {
-	// TODO:
+	this.model.players.addPlayer();
 };
 
 
