@@ -49,6 +49,9 @@ GameFlowController.prototype.startGameRound = function()
 	var players = this.model.players.getPlayersGroup();
 	var dealer = this.model.dealer;
 	
+	// reset required vars
+	this.model.roundInProgress = true;
+	
 	// deal cards to all players
 	var currentPlayer;
 	
@@ -70,13 +73,34 @@ GameFlowController.prototype.startGameRound = function()
 	
 };
 
+
+GameFlowController.prototype.playNextRound = function()
+{
+	this.cleanUpFromPreviousRound();
+	
+	this.startGameRound();
+};
+
+
 /**
  * 
  */
 GameFlowController.prototype.switchToNextPlayer = function()
 {
+	if( this.checkRoundOver() )
+	{
+		this.model.roundInProgress = false;
+	}
+	
 	this.setActivePlayer( this.model.players.getNextToPlayer( this.model.activePlayer ) );
 };
+
+
+GameFlowController.prototype.checkRoundOver = function()
+{
+	return this.model.players.didAllPlayersFinishGame();
+};
+
 
 GameFlowController.prototype.setActivePlayer = function( newActivePlayer )
 {
@@ -110,6 +134,74 @@ GameFlowController.prototype.doDealerTurn = function()
 };
 
 
+/**
+ * Checking player's current score, before the dealer move.
+ * If player got "busting" or BlackJack, which causes immediate result.
+ * 
+ * @param inputPlayer
+ */
+GameFlowController.prototype.checkPlayerScore = function( inputPlayer )
+{
+	var playersScore = inputPlayer.getCurrentCardsScore();
+
+	if( playersScore > 21 )
+	{
+		inputPlayer.lose = true;
+	}
+	else if( playersScore === 21 )
+	{
+		inputPlayer.win = true;
+	}
+	
+	if( inputPlayer.win || inputPlayer.lose )
+	{
+		// switch turn to the next player
+		this.switchToNextPlayer();
+	}
+};
+
+
+/**
+ * Checking all the participating players game results (which aren't been calculated before)
+ * And comparing them with the dealer's score.
+ * 
+ */
+GameFlowController.prototype.checkAllParticipantsScore = function()
+{
+	var players = this.model.players.getPlayersGroup();
+	
+	// compare each player's score with the dealer's score
+	for( var i in players )
+	{
+		currentPlayer = players[ i ];
+		
+		
+	}
+};
+	
+
+/**
+ * 
+ */
+GameFlowController.prototype.cleanUpFromPreviousRound = function()
+{
+	// remove cards from previous round
+	// and reset all required flags/vars
+	var players = this.model.players.getPlayersGroup();
+	
+	for( var i in players )
+	{
+		currentPlayer = players[ i ];
+		
+		currentPlayer.removeCards();
+		currentPlayer.resetRoundStatus();
+	}
+	
+	// remove dealer cards
+	this.model.dealer.removeCards();
+	this.model.dealer.resetRoundStatus();
+};
+
 
 // --- User actions handlers --- //
 
@@ -121,6 +213,8 @@ GameFlowController.prototype.hitActionHandler = function( inputPlayer )
 {
 	// deal one more card to this player
 	inputPlayer.addCard( this.model.cardsStack.dealCard() );
+	
+	this.checkPlayerScore( inputPlayer );
 };
 
 /**
@@ -140,6 +234,16 @@ GameFlowController.prototype.stickActionHandler = function( inputPlayer )
 GameFlowController.prototype.quitActionHandler = function( inputPlayer )
 {
 	this.model.players.deletePlayer( inputPlayer );
+};
+
+/**
+ * Add new player into the game.
+ * NOTE: available only when the game round is over.
+ * @param
+ */
+GameFlowController.prototype.addNewPlayer = function()
+{
+	// TODO:
 };
 
 

@@ -24,8 +24,24 @@
 	
 	<br/><br/><br/><br/>
 	
+	<!-- Play next round -->
+	<button type="button" class="btn btn-lg btn-success" ng-show="isPlayNextRoundButtonEnabled()" ng-click="playNextRound()">Play next Round</button>
+	
+	<br/><br/>
+	
 	<!-- Players group -->
 	<div ng-repeat="player in model.players.getPlayersGroup()">
+		
+		<div class="alert alert-{{ player.didWinHappen() ? 'success' : 'danger' }}" style="width: 300px;" ng-show="player.didWinHappen() || player.didLoseHappen()" role="alert">
+        	<strong>You {{ player.didWinHappen() ? 'WIN' : 'LOSE' }}!</strong>
+      	</div>
+      	
+      	<!-- 
+      	<div class="alert alert-danger" role="alert">
+        	<strong>You LOSE!</strong>
+      	</div>
+		-->
+		
 		<div class="panel panel-info" style="width: 300px;">
             <div class="panel-heading">
               <h3 class="panel-title">{{ player.getPlayerName() }}</h3>
@@ -44,6 +60,8 @@
           </div>
 	</div>
 	
-
+	<!-- Add new player -->
+	<button type="button" class="btn btn-lg btn-warning" ng-click="addNewPlayer()">Add player</button>
+	
 </div>
 

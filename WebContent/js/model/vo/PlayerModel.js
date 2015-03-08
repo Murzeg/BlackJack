@@ -5,6 +5,9 @@ var PlayerModel = function( playerID )
 	
 	this.playerID = playerID;
 	this.isActive = false;
+	
+	this.win = false;
+	this.lose = false;
 };
 
 /**
@@ -47,6 +50,24 @@ PlayerModel.prototype.addCard = function( card )
     this.cards.push( card );
 };
 
+/**
+ * Remove all current cards from the hand.
+ */
+PlayerModel.prototype.removeCards = function()
+{
+	this.cards.splice( 0, this.cards.length );
+};
+
+
+/**
+ * Reset win/lose flags.
+ */
+PlayerModel.prototype.resetRoundStatus = function()
+{
+	this.win = false;
+	this.lose = false;
+};
+
 
 /**
  * 
@@ -75,5 +96,22 @@ PlayerModel.prototype.isHitEnabled = function()
 PlayerModel.prototype.isStickEnabled = function()
 {
 	return this.isActive;
+};
+
+
+
+PlayerModel.prototype.didWinHappen = function()
+{
+	return this.win;
+};
+
+PlayerModel.prototype.didLoseHappen = function()
+{
+	return this.lose;
+};
+
+PlayerModel.prototype.isRoundOver = function()
+{
+	return this.win || this.lose;
 };
 

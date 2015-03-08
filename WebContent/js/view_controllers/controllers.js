@@ -33,11 +33,17 @@ BlackJack.controller('gameViewCtrl', ['$scope', '$location', '$window', '$routeP
 		return cardLayer;
 	};
 	
+	$scope.isPlayNextRoundButtonEnabled = function()
+	{
+		return !gameModel.roundInProgress;
+	};
+	
 	
 	// ------
 	// Public methods to be accessible from views
 	// ------
 
+	// Particular player actions handlers
 	$scope.hitActionHandler = function( inputPlayer )
 	{
 		gameController.hitActionHandler( inputPlayer );
@@ -54,6 +60,17 @@ BlackJack.controller('gameViewCtrl', ['$scope', '$location', '$window', '$routeP
 	};
 	
 	
+	// Game flow controls handlers 
+	
+	$scope.playNextRound = function()
+	{
+		gameController.playNextRound();
+	};
+	
+	$scope.addNewPlayer = function()
+	{
+		gameController.addNewPlayer();
+	};
 
 	
 	// End of Game view handlers

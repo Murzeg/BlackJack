@@ -35,5 +35,7 @@ BlackJack.service( "gameModel", [ '$rootScope', 'applicationModel', function( $r
 	var dealer;
 	
 	var activePlayer;
+	
+	var roundInProgress = false;
    	
 }]);

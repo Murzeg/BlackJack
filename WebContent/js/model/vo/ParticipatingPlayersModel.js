@@ -59,3 +59,20 @@ ParticipatingPlayersModel.prototype.getPlayersGroup = function()
 };
 
 
+ParticipatingPlayersModel.prototype.didAllPlayersFinishGame = function()
+{
+	var currentPlayer;
+	
+	for( var i in this.players )
+	{
+		currentPlayer = this.players[ i ];
+		
+		if( currentPlayer && !currentPlayer.isRoundOver() )
+		{
+			return false;
+		}
+	}
+	
+	return true;
+};
+
