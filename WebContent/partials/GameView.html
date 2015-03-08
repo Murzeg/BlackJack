@@ -2,35 +2,36 @@
 <!-- Main group -->
 <div id="mainGameViewGroup">
 
-	<!-- Cards Stack -->
-	<div class="cards-stack" >
-   		<div ng-repeat="card in model.cardsStack.getCardsStack()" >
-	 		<span class="card-name">{{ card.name }}</span>
-      	</div>
-	</div>
+	<div class="top-group">
 	
-	<!-- Dealer -->
-	<div class="panel panel-warning" style="width: 300px;">
-		<div class="panel-heading">
-			<h3 class="panel-title">Dealer</h3>
+		<!-- Cards Stack -->
+		<div class="cards-stack" >
+	   		<div ng-repeat="card in model.cardsStack.getCardsStack()" >
+		 		<span class="card-name">{{ card.name }}</span>
+	      	</div>
 		</div>
-		<div class="panel-body">
 		
-			<!-- Cards -->
-			<div class="cards-in-hand" ng-repeat="card in model.dealer.getPlayerCards()">{{ card.getCardLabel() }}</div>
+		<!-- Dealer -->
+		<div class="panel panel-warning absolute-horontal-center dealer-group" style="width: 300px;">
+			<div class="panel-heading">
+				<h3 class="panel-title">Dealer</h3>
+			</div>
+			<div class="panel-body">
 			
+				<!-- Cards -->
+				<div class="cards-in-hand" ng-repeat="card in model.dealer.getPlayerCards()">{{ card.getCardLabel() }}</div>
+				
+			</div>
 		</div>
+		
+		<!-- Play next round -->
+		<button type="button" class="btn btn-lg btn-success absolute-horontal-center play-new-round-button" ng-show="isPlayNextRoundButtonEnabled()" ng-click="playNextRound()">Play next Round</button>
+		
 	</div>
 	
-	<br/><br/><br/><br/>
-	
-	<!-- Play next round -->
-	<button type="button" class="btn btn-lg btn-success" ng-show="isPlayNextRoundButtonEnabled()" ng-click="playNextRound()">Play next Round</button>
-	
-	<br/><br/>
 	
 	<!-- Players group -->
-	<div ng-repeat="player in model.players.getPlayersGroup()">
+	<div class="player-group" ng-repeat="player in model.players.getPlayersGroup()">
 		
 		<div class="alert alert-{{ player.didWinHappen() ? 'success' : 'danger' }}" style="width: 300px;" ng-show="player.didWinHappen() || player.didLoseHappen()" role="alert">
         	<strong>You {{ player.didWinHappen() ? 'WIN' : 'LOSE' }}!</strong>

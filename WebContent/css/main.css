@@ -8,5 +8,35 @@ body
     color: #0;
 }
 
+.absolute-horontal-center 
+{
+  width: 50%;
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  left: 0; right: 0;
+}
 
+.top-group
+{
+	height: 300px;	
+}
+
+.dealer-group
+{
+	top: 20px;
+}
+
+.play-new-round-button
+{
+	top: 200px;
+	width: 220px;
+}
+
+.player-group 
+{
+  display: inline-block;
+  margin: 0 1em 0 1em;
+  width: 300px;
+}
 
