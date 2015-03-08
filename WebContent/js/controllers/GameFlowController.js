@@ -68,11 +68,11 @@ GameFlowController.prototype.startGameRound = function()
 	dealer.addCard( cardsStack.dealCard() );
 	dealer.addCard( cardsStack.dealCard() );
 	
-	// set active player to the first player
-	this.setActivePlayer( this.model.players.getStartingPlayer() );
-	
 	// check dealer cards scores right after the round started
 	this.checkDealersScore();
+	
+	// set active player to the first player
+	this.setActivePlayer( this.model.players.getStartingPlayer() );
 };
 
 
@@ -115,6 +115,9 @@ GameFlowController.prototype.setActivePlayer = function( newActivePlayer )
 	{
 		this.model.activePlayer = newActivePlayer;
 		newActivePlayer.isActive = true;
+		
+		// check player's score at the beginning to check for BlackJack
+		this.checkPlayerScore( newActivePlayer );
 	}
 	// if no more players available in this round, 
 	// then it's dealer's turn
@@ -160,11 +163,12 @@ GameFlowController.prototype.checkDealersScore = function()
 {
 	var dealersScore = this.model.dealer.getCurrentCardsScore();
 	
+	// check if got BlackJack on first 2 cards
 	if( dealersScore === this.appModel.BLACK_JACK_SCORE && this.model.dealer.getCardCount() == 2 )
 	{
 		this.setAllPlayersResultToLose();
 		
-		console.log( "DEALER got - BlackJack!" );
+		console.log( "DEALER got - BlackJack!!!" );
 		
 		this.model.roundInProgress = false;
 	}
@@ -185,18 +189,19 @@ GameFlowController.prototype.checkPlayerScore = function( inputPlayer )
 		console.log( inputPlayer.getPlayerID() + " busting.." );
 		
 		inputPlayer.lose = true;
+		
+		// turn moved to the next player
+		this.switchToNextPlayer();
 	}
 	else if( playersScore === this.appModel.BLACK_JACK_SCORE )
 	{
+		// Check for BlackJack on first 2 cards
 		if( inputPlayer.getCardCount() == 2 )
 		{
-			console.log( inputPlayer.getPlayerID() + " got - BlackJack!" );
+			console.log( inputPlayer.getPlayerID() + " got - BlackJack!!!" );
+			
+			inputPlayer.win = true;
 		}
-		
-		// Check for BlackJack at the end of the Round, because there is a chance,
-		// that dealer would have a BlackJack also, which result to a player's LOSE anyway
-		
-//		inputPlayer.win = true;
 		
 		// switch turn to the next player, be already got MAX 21 points
 		this.switchToNextPlayer();
