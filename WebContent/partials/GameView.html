@@ -22,7 +22,7 @@
 				<div class="cards-holder">
 				
 					<!-- Cards -->
-					<div class="card-item" ng-repeat="card in model.dealer.getPlayerCards()">{{ card.getCardLabel() }}</div>
+					<div class="card-item" ng-repeat="card in model.dealer.getPlayerCards()" ng-bind="card.getCardLabel()|decode"></div>
 				</div>
 				
 			</div>
@@ -57,7 +57,7 @@
 				<div class="cards-holder">
 				
 					<!-- Cards -->
-              		<div class="card-item" ng-repeat="card in player.getPlayerCards()">{{ card.getCardLabel() }}</div>
+              		<div class="card-item" ng-repeat="card in player.getPlayerCards()" ng-bind="card.getCardLabel()|decode"></div>
               
 					<button type="button" class="btn btn-sm btn-success" ng-disabled="!player.isHitEnabled()" ng-click="hitActionHandler( player )">Hit</button>
               		<button type="button" class="btn btn-sm btn-warning" ng-disabled="!player.isStickEnabled()" ng-click="stickActionHandler( player )">Stick</button>

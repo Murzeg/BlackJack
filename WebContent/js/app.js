@@ -2,6 +2,20 @@
 
 var BlackJack = angular.module( 'BlackJackApp', [ 'ngRoute', 'ngAnimate' ]);
 
+// --- Filter --- //
+// Added decode filter to be able to show HTML-encoded symbols for the card suits
+BlackJack.filter("decode",function()
+{
+    return function(str)
+    { 
+      var el = document.createElement("div");
+      el.innerHTML = str;
+      str =  el.innerText || el.textContent;
+      return str;
+    };
+});
+
+
 // --- Configuration --- //
 
 BlackJack.config(['$routeProvider', '$locationProvider', function( $routeProvider, $locationProvider ) 
