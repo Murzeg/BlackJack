@@ -71,6 +71,8 @@ GameFlowController.prototype.startGameRound = function()
 	// set active player to the first player
 	this.setActivePlayer( this.model.players.getStartingPlayer() );
 	
+	// check dealer cards scores right after the round started
+	this.checkDealersScore();
 };
 
 
@@ -119,6 +121,17 @@ GameFlowController.prototype.setActivePlayer = function( newActivePlayer )
 	else
 	{
 		this.doDealerTurn();
+		
+		// check final scores
+		this.checkDealersScore();
+		
+		// if dealer didn't get BlackJack
+		if( this.model.roundInProgress )
+		{
+			this.checkAllParticipantsScore();
+		}
+		
+		this.model.roundInProgress = false;
 	}
 };
 
@@ -134,9 +147,32 @@ GameFlowController.prototype.doDealerTurn = function()
 };
 
 
+
+// ==== Cards score checking === //
+
+/**
+ * Checking dealer's current score, after the round start,
+ * in case if there is Blackjack
+ * 
+ * @param inputPlayer
+ */
+GameFlowController.prototype.checkDealersScore = function()
+{
+	var dealersScore = this.model.dealer.getCurrentCardsScore();
+	
+	if( dealersScore === this.appModel.BLACK_JACK_SCORE && this.model.dealer.getCardCount() == 2 )
+	{
+		this.setAllPlayersResultToLose();
+		
+		console.log( "DEALER got - BlackJack!" );
+		
+		this.model.roundInProgress = false;
+	}
+};
+
 /**
  * Checking player's current score, before the dealer move.
- * If player got "busting" or BlackJack, which causes immediate result.
+ * If player "busting" which causes immediate result.
  * 
  * @param inputPlayer
  */
@@ -144,18 +180,25 @@ GameFlowController.prototype.checkPlayerScore = function( inputPlayer )
 {
 	var playersScore = inputPlayer.getCurrentCardsScore();
 
-	if( playersScore > 21 )
+	if( playersScore > this.appModel.BLACK_JACK_SCORE )
 	{
+		console.log( inputPlayer.getPlayerID() + " busting.." );
+		
 		inputPlayer.lose = true;
 	}
-	else if( playersScore === 21 )
+	else if( playersScore === this.appModel.BLACK_JACK_SCORE )
 	{
-		inputPlayer.win = true;
-	}
-	
-	if( inputPlayer.win || inputPlayer.lose )
-	{
-		// switch turn to the next player
+		if( inputPlayer.getCardCount() == 2 )
+		{
+			console.log( inputPlayer.getPlayerID() + " got - BlackJack!" );
+		}
+		
+		// Check for BlackJack at the end of the Round, because there is a chance,
+		// that dealer would have a BlackJack also, which result to a player's LOSE anyway
+		
+//		inputPlayer.win = true;
+		
+		// switch turn to the next player, be already got MAX 21 points
 		this.switchToNextPlayer();
 	}
 };
@@ -169,16 +212,45 @@ GameFlowController.prototype.checkPlayerScore = function( inputPlayer )
 GameFlowController.prototype.checkAllParticipantsScore = function()
 {
 	var players = this.model.players.getPlayersGroup();
+	var currentPlayer;
+	var playersScore;
+	
+	var dealersScore = this.model.dealer.getCurrentCardsScore();
 	
 	// compare each player's score with the dealer's score
 	for( var i in players )
 	{
 		currentPlayer = players[ i ];
+		playersScore = currentPlayer.getCurrentCardsScore();
 		
+		// we are not checking for dealer's BlackJack here,
+		// it was done before in "checkDealersScore" method
 		
+		// if dealer "busting"
+		if( dealersScore > this.appModel.BLACK_JACK_SCORE )
+		{
+			console.log( "DEALER busting.." );
+			
+			this.model.players.setAllAvailablePlayersResultToWin();
+		}
+		else if( playersScore > dealersScore )
+		{
+			console.log( currentPlayer.getPlayerID() + " WIN!" );
+			
+			currentPlayer.win = true;
+		}
+		else if( dealersScore > playersScore )
+		{
+			console.log( currentPlayer.getPlayerID() + " LOSE!" );
+			
+			currentPlayer.lose = true;
+		}
 	}
 };
 	
+//==== End of - Cards score checking === //
+
+
 
 /**
  * 
@@ -188,6 +260,7 @@ GameFlowController.prototype.cleanUpFromPreviousRound = function()
 	// remove cards from previous round
 	// and reset all required flags/vars
 	var players = this.model.players.getPlayersGroup();
+	var currentPlayer;
 	
 	for( var i in players )
 	{

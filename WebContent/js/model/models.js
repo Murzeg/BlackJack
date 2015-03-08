@@ -5,6 +5,7 @@ BlackJack.service( "applicationModel", [ '$rootScope', function( $rootScope )
 	var self = this;
 	
 	// Const
+	this.BLACK_JACK_SCORE = 21;
 	this.DEALERS_MAX_CARD_SCORE = 17;
 
 

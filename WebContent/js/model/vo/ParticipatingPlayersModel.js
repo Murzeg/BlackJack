@@ -76,3 +76,33 @@ ParticipatingPlayersModel.prototype.didAllPlayersFinishGame = function()
 	return true;
 };
 
+
+ParticipatingPlayersModel.prototype.setAllPlayersResultToLose = function()
+{
+	var currentPlayer;
+	
+	for( var i in this.players )
+	{
+		currentPlayer = this.players[ i ];
+		currentPlayer.lose = true;
+	}
+};
+
+
+ParticipatingPlayersModel.prototype.setAllAvailablePlayersResultToWin = function()
+{
+	var currentPlayer;
+	
+	for( var i in this.players )
+	{
+		currentPlayer = this.players[ i ];
+		
+		// set the result, only of the result hasn't been 
+		// set before
+		if( !currentPlayer.lose && !currentPlayer.win )
+		{
+			currentPlayer.win = true;
+		}
+	}
+};
+

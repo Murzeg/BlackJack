@@ -115,3 +115,13 @@ PlayerModel.prototype.isRoundOver = function()
 	return this.win || this.lose;
 };
 
+
+PlayerModel.prototype.getPlayerID = function()
+{
+	return this.playerID;
+};
+
+PlayerModel.prototype.getCardCount = function()
+{
+	return this.cards.length;
+};
