@@ -14,7 +14,7 @@
 		<!-- Dealer -->
 		<div class="panel panel-warning absolute-horontal-center dealer-group">
 			<div class="panel-heading">
-				<h3 class="panel-title">Dealer</h3>
+				<h3 class="panel-title">{{ model.dealer.getPlayerName() }}</h3>
 			</div>
 			<div class="panel-body ">
 			
@@ -22,7 +22,7 @@
 				<div class="cards-holder">
 				
 					<!-- Cards -->
-					<div class="card-item" ng-repeat="card in model.dealer.getPlayerCards()" ng-bind="card.getCardLabel()|decode"></div>
+					<div class="card-item suit-{{ getSuitColor() == 'black' ? 'black' : 'red' }}" ng-repeat="card in model.dealer.getPlayerCards()" ng-bind="card.getCardLabel()|decode"></div>
 				</div>
 				
 			</div>
@@ -34,43 +34,40 @@
 	</div>
 	
 	
-	<!-- Players group -->
-	<div class="player-group" ng-repeat="player in model.players.getPlayersGroup()">
-		
-		<div class="alert alert-{{ player.didWinHappen() ? 'success' : 'danger' }}" ng-show="player.didWinHappen() || player.didLoseHappen()" role="alert">
-        	<strong>You {{ player.didWinHappen() ? 'WIN' : 'LOSE' }}!</strong>
-      	</div>
-      	
-      	<!-- 
-      	<div class="alert alert-danger" role="alert">
-        	<strong>You LOSE!</strong>
-      	</div>
-		-->
-		
-		<div class="panel panel-info"">
-            <div class="panel-heading">
-              <h3 class="panel-title">{{ player.getPlayerName() }}</h3>
-            </div>
-            <div class="panel-body">
-              
-              <!-- Player's Hand -->
-				<div class="cards-holder">
-				
-					<!-- Cards -->
-              		<div class="card-item" ng-repeat="card in player.getPlayerCards()" ng-bind="card.getCardLabel()|decode"></div>
+	<!-- Players groups (using super old <center> tag temporary) -->
+	<center>
+		<div class="player-group" ng-repeat="player in model.players.getPlayersGroup()">
+			
+			<div class="alert alert-{{ player.didWinHappen() ? 'success' : 'danger' }} center-aligned-text" ng-show="player.didWinHappen() || player.didLoseHappen()" role="alert">
+	        	<strong>You {{ player.didWinHappen() ? 'WIN' : 'LOSE' }}!</strong>
+	      	</div>
+	      	
+			<div class="panel panel-info"">
+	            <div class="panel-heading">
+	              <h3 class="panel-title">{{ player.getPlayerName() }}</h3>
+	            </div>
+	            <div class="panel-body">
+	              
+	              <!-- Player's Hand -->
+					<div class="cards-holder">
 					
-				</div>
-				
-				<!-- Controls (using super old <center> tag temporary) -->
-				<center class="control-buttons-group">
-					<button type="button" class="btn btn-sm btn-success" ng-disabled="!player.isHitEnabled()" ng-click="hitActionHandler( player )">Hit</button>
-	             	<button type="button" class="btn btn-sm btn-warning" ng-disabled="!player.isStickEnabled()" ng-click="stickActionHandler( player )">Stick</button>
-    	         	<button type="button" class="btn btn-sm btn-danger" ng-click="quitActionHandler( player )">Quit</button>
-    	        </center>
-              
-            </div>
-          </div>
-	</div>
+						<!-- Cards -->
+	              		<div class="card-item" ng-repeat="card in player.getPlayerCards()" ng-bind="card.getCardLabel()|decode"></div>
+						
+					</div>
+					
+					<!-- Controls (using super old <center> tag temporary) -->
+					<center class="control-buttons-group">
+						<button type="button" class="btn btn-sm btn-success" ng-disabled="!player.isHitEnabled()" ng-click="hitActionHandler( player )">Hit</button>
+		             	<button type="button" class="btn btn-sm btn-warning" ng-disabled="!player.isStickEnabled()" ng-click="stickActionHandler( player )">Stick</button>
+	    	         	<button type="button" class="btn btn-sm btn-danger" ng-click="quitActionHandler( player )">Quit</button>
+	    	        </center>
+	              
+	            </div>
+	          </div>
+		</div>
+		
+	<center>
 	
 	<!-- Add new player -->
 	<button type="button" class="btn btn-lg btn-warning" ng-disabled="model.roundInProgress || model.players.wasMaximumPlayersCountReached()" ng-click="addNewPlayer()">Add player</button>

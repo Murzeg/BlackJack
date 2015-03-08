@@ -92,3 +92,16 @@ CardModel.prototype.getCardSuitSymbol = function()
     
     return suitName;
 };
+
+
+CardModel.prototype.getSuitColor = function()
+{
+	if( this.suit == CardSuits.clubs || this.suit == CardSuits.hearts )
+	{
+		return 'red';
+	}
+	else
+	{
+		return 'black';
+	}
+};
