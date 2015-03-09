@@ -31,13 +31,25 @@ body
 
 .top-group
 {
-	height: 330px;	
+	height: 310px;
+	margin-top: 20px;	
 }
+
+.centered-group 
+{
+	width: 80%;
+	margin: 0 auto; 
+}
+
+.centered-item 
+{
+	width: 50%;
+	float:left; 
+} 
 
 .dealer-group
 {
 	width: 360px;
-	top: 20px;
 }
 
 
@@ -45,6 +57,8 @@ body
 {
 	width: 100px;
 	height: 140px;
+	
+	margin-top:30px;
 }
 
 .card-in-deck-item
@@ -86,7 +100,7 @@ body
 {
   display: inline-block;
   margin: 0 1em 0 1em;
-  width: 290px;
+  width: 262px;
 }
 
 
