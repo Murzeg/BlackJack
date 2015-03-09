@@ -86,7 +86,10 @@ PlayerModel.prototype.getPlayerCards = function()
 };
 
 /**
- * @returns Appropriate player's name. 
+ * @returns Appropriate player's name.
+ * 
+ * NOTE: if player "isActive", return different name with "(Active)" suffix
+ *  
  */
 PlayerModel.prototype.getPlayerName = function()
 {
@@ -95,7 +98,7 @@ PlayerModel.prototype.getPlayerName = function()
 		return "Dealer";
 	}
 	else
-		return "Player " + this.playerID;
+		return "Player " + this.playerID + ( this.isActive ? ' (Active)' : '' );
 };
 
 /**
