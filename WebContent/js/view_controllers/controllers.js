@@ -38,8 +38,9 @@ BlackJack.controller('gameViewCtrl', ['$scope', '$location', '$window', '$routeP
 	{
 		var cardLayer = $scope.model.cardsStack.getCardZindex( card );
 		
-		// TODO: add some additional processing
-		return cardLayer;
+		// divide by 2 to make 0.5px offset for each card
+		// so the deck won't look so high
+		return cardLayer / 2; 
 	};
 	
 	/**

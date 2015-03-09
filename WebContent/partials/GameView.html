@@ -5,10 +5,10 @@
 	<div class="top-group">
 	
 		<!-- Cards Stack -->
-		<div class="cards-stack" >
-	   		<div ng-repeat="card in model.cardsStack.getCardsStack()" >
-		 		<span class="card-name">{{ card.name }}</span>
-	      	</div>
+		<div class="cards-deck" >
+		
+			<!-- Cards -->
+			<div class="card-in-deck-item" style="margin-left: {{ getCardPosition( card ) }}px;  margin-top: {{ getCardPosition( card ) }}px;"  ng-repeat="card in model.cardsStack.getCardsStack()"></div>
 		</div>
 		
 		<!-- Dealer -->
