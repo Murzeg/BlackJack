@@ -1,3 +1,8 @@
+/**
+ * @author Sergey Khvostantsev
+ *
+ * rooty.net
+ */
 
 // Construct
 var ParticipatingPlayersModel = function( MAX_PLAYERS_NUMBER )

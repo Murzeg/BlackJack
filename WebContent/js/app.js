@@ -1,4 +1,8 @@
-
+/**
+ * @author Sergey Khvostantsev
+ *
+ * rooty.net
+ */
 
 var BlackJack = angular.module( 'BlackJackApp', [ 'ngRoute' ]);
 

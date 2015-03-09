@@ -1,3 +1,9 @@
+/**
+ * @author Sergey Khvostantsev
+ *
+ * rooty.net
+ */
+
 var DEBUG_MODE = false;
 
 BlackJack.service( "applicationModel", [ '$rootScope', function( $rootScope ) 

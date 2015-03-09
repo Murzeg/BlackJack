@@ -42,7 +42,7 @@
 	        	<strong>You {{ player.didWinHappen() ? 'WIN' : 'LOSE' }}!</strong>
 	      	</div>
 	      	
-			<div class="panel panel-info"">
+			<div class="panel panel-{{ player.isActivePlayer() ? 'success' : 'default' }}">
 	            <div class="panel-heading">
 	              <h3 class="panel-title">{{ player.getPlayerName() }}</h3>
 	            </div>

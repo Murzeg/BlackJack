@@ -1,4 +1,10 @@
 /**
+ * @author Sergey Khvostantsev
+ *
+ * rooty.net
+ */
+
+/**
  * Cards suits enum.
  */
 

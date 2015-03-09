@@ -1,3 +1,8 @@
+/**
+ * @author Sergey Khvostantsev
+ *
+ * rooty.net
+ */
 
 // Construct
 var PlayerModel = function( playerID )
@@ -101,6 +106,13 @@ PlayerModel.prototype.getPlayerID = function()
 	return this.playerID;
 };
 
+/**
+ * @returns {Boolean} Getter for this.isActive; 
+ */
+PlayerModel.prototype.isActivePlayer = function()
+{
+	return this.isActive;
+};
 
 /**
  * @returns {Boolean} Return true if the possible "Hit" button could be enabled. 

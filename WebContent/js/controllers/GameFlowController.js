@@ -1,4 +1,10 @@
 /**
+ * @author Sergey Khvostantsev
+ *
+ * rooty.net
+ */
+
+/**
  * Game flow controller.
  */
 var GameFlowController = function( $rootScope, model, appModel, $timeout, $interval )
