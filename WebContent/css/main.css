@@ -90,11 +90,11 @@ body
 .suit-black 
 {
 	color: black;
-};
+}
 
-.suit-red 
+.suit-red
 {
-	color: red;
+	color: #d20915; /*red */
 }
 
 .control-buttons-group

@@ -22,7 +22,7 @@
 				<div class="cards-holder">
 				
 					<!-- Cards -->
-					<div class="card-item suit-{{ getSuitColor() == 'black' ? 'black' : 'red' }}" ng-repeat="card in model.dealer.getPlayerCards()" ng-bind="card.getCardLabel()|decode"></div>
+					<div class="card-item suit-{{ card.getSuitColor() }}" ng-repeat="card in model.dealer.getPlayerCards()" ng-bind="card.getCardLabel()|decode"></div>
 				</div>
 				
 			</div>
@@ -52,7 +52,7 @@
 					<div class="cards-holder">
 					
 						<!-- Cards -->
-	              		<div class="card-item" ng-repeat="card in player.getPlayerCards()" ng-bind="card.getCardLabel()|decode"></div>
+	              		<div class="card-item suit-{{ card.getSuitColor() }}" ng-repeat="card in player.getPlayerCards()" ng-bind="card.getCardLabel()|decode"></div>
 						
 					</div>
 					

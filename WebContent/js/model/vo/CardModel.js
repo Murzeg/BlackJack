@@ -104,7 +104,7 @@ CardModel.prototype.getCardSuitSymbol = function()
  */
 CardModel.prototype.getSuitColor = function()
 {
-	if( this.suit == CardSuits.clubs || this.suit == CardSuits.hearts )
+	if( this.suit == CardSuits.diamonds || this.suit == CardSuits.hearts )
 	{
 		return 'red';
 	}
@@ -112,4 +112,14 @@ CardModel.prototype.getSuitColor = function()
 	{
 		return 'black';
 	}
+};
+
+CardModel.prototype.isRedColorSuit = function()
+{
+	if( this.suit == CardSuits.diamonds || this.suit == CardSuits.hearts )
+	{
+		return true;
+	}
+	
+	return false;
 };
