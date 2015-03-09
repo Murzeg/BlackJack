@@ -1,4 +1,5 @@
 
+// Construct
 var PlayerModel = function( playerID )
 {
 	this.cards = [];
@@ -31,7 +32,7 @@ PlayerModel.prototype.getCurrentCardsScore = function()
         score += cardValue;
     }
     
-    /* Check to see if Aces should be 1 or 11 */
+    /* Check to see if Aces should be counted as 1 or 11 */
     while( score > 21 && acesCount > 0)
     {
         score -= 10;
@@ -49,6 +50,7 @@ PlayerModel.prototype.addCard = function( card )
 {
     this.cards.push( card );
 };
+
 
 /**
  * Remove all current cards from the hand.
@@ -71,7 +73,7 @@ PlayerModel.prototype.resetRoundStatus = function()
 
 /**
  * 
- * @returns {Array}
+ * @returns {Array} Getter for this.cards
  */
 PlayerModel.prototype.getPlayerCards = function()
 {
@@ -79,8 +81,7 @@ PlayerModel.prototype.getPlayerCards = function()
 };
 
 /**
- * 
- * @returns
+ * @returns Appropriate player's name. 
  */
 PlayerModel.prototype.getPlayerName = function()
 {
@@ -92,39 +93,61 @@ PlayerModel.prototype.getPlayerName = function()
 		return "Player " + this.playerID;
 };
 
+/**
+ * @returns { int } Getter for this.playerID;
+ */
 PlayerModel.prototype.getPlayerID = function()
 {
 	return this.playerID;
 };
 
 
+/**
+ * @returns {Boolean} Return true if the possible "Hit" button could be enabled. 
+ */
 PlayerModel.prototype.isHitEnabled = function()
 {
 	return this.isActive;
 };
 
+/**
+ * @returns {Boolean} Return true if the possible "Stick" button could be enabled. 
+ */
 PlayerModel.prototype.isStickEnabled = function()
 {
 	return this.isActive;
 };
 
 
-
+/**
+ * @returns { Boolean } Getter for this.win;
+ */
 PlayerModel.prototype.didWinHappen = function()
 {
 	return this.win;
 };
 
+/**
+ * @returns { Boolean } Getter for this.lose;
+ */
 PlayerModel.prototype.didLoseHappen = function()
 {
 	return this.lose;
 };
 
+/**
+ * @returns { Boolean } Returns true if the result (WIN | LOSE) 
+ * has been already set for this player.
+ */
 PlayerModel.prototype.isRoundOver = function()
 {
 	return this.win || this.lose;
 };
 
+/**
+ * 
+ * @returns { int } Cards number in the player's hand.
+ */
 PlayerModel.prototype.getCardCount = function()
 {
 	return this.cards.length;

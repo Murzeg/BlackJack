@@ -80,7 +80,7 @@ BlackJack.config([ '$provide', function( $provide )
 // on RUN Angular handler
 BlackJack.run( function() 
 {
-	// initialize FastClick library
+	// initialize FastClick library for a proper mobile TOUCH behavior
 	new FastClick( document.body );
 });
 

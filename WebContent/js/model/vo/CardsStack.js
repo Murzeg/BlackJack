@@ -33,13 +33,13 @@ CardsStack.prototype.generateDeck = function()
 	this.shuffle();
 };
 
+
 /**
  * Deal cards.
  * @returns top card from the deck.
  */
 CardsStack.prototype.dealCard = function()
 {
-	// TODO:
 	// if no more cards been found in the stack, then
 	// generate a new one
     if ( !this.stack.length )

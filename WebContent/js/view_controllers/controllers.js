@@ -17,6 +17,7 @@ BlackJack.controller('gameViewCtrl', ['$scope', '$location', '$window', '$routeP
 	$scope.model = gameModel;
 	$scope.appModel = applicationModel;
 	
+	// Triggers when this view has been loaded by Angular
 	$scope.onViewContentChanged = function()
 	{
 		console.log("gameViewCtrl_loaded");
@@ -25,6 +26,9 @@ BlackJack.controller('gameViewCtrl', ['$scope', '$location', '$window', '$routeP
 		gameController.startNewGame();
 	};
 	
+	/**
+	 * Returns card position/offset depending on this card z-index.
+	 */
 	$scope.getCardPosition = function( card )
 	{
 		var cardLayer = $scope.model.cardsStack.getCardZindex( card );
@@ -33,6 +37,9 @@ BlackJack.controller('gameViewCtrl', ['$scope', '$location', '$window', '$routeP
 		return cardLayer;
 	};
 	
+	/**
+	 * Returns true if the "Play Next Round" button can be enabled.
+	 */
 	$scope.isPlayNextRoundButtonEnabled = function()
 	{
 		return !gameModel.roundInProgress;
@@ -44,6 +51,7 @@ BlackJack.controller('gameViewCtrl', ['$scope', '$location', '$window', '$routeP
 	// ------
 
 	// Particular player actions handlers
+	
 	$scope.hitActionHandler = function( inputPlayer )
 	{
 		gameController.hitActionHandler( inputPlayer );
@@ -61,7 +69,6 @@ BlackJack.controller('gameViewCtrl', ['$scope', '$location', '$window', '$routeP
 	
 	
 	// Game flow controls handlers 
-	
 	$scope.playNextRound = function()
 	{
 		gameController.playNextRound();
@@ -71,27 +78,6 @@ BlackJack.controller('gameViewCtrl', ['$scope', '$location', '$window', '$routeP
 	{
 		gameController.addNewPlayer();
 	};
-
-	
-	// End of Game view handlers
-//	$scope.onGotoSettingsPageClick = function()
-//	{
-//		$location.path( '/' );
-//	};
-	
-	
-	// Proxy method
-//	$scope.isSoloPlayer = function()
-//	{
-//		return gameController.isSoloPlayer();
-//	};
-//	
-//	// AppModel proxy method //
-//	$scope.getTimeLimitString = function()
-//	{
-//		return gameModel.getTimeLimitString();
-//	};
-	
 	
 }]);
 

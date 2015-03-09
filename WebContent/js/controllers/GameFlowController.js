@@ -29,20 +29,16 @@ GameFlowController.prototype.startNewGame = function()
 	var players = this.model.players;
 	var dealer = this.model.dealer;
 	
-	
 	// add 2 default players 
 	players.addPlayer();
 	players.addPlayer();
 
 	this.startGameRound();
-	
-	// TODO: disabled
-//	this.$rootScope.safeApplyPlain();
 };
 
 
 /**
- * 
+ * Start new game processing.
  */
 GameFlowController.prototype.startGameRound = function()
 {
@@ -80,6 +76,9 @@ GameFlowController.prototype.startGameRound = function()
 };
 
 
+/**
+ * Play Next round play processing.
+ */
 GameFlowController.prototype.playNextRound = function()
 {
 	this.cleanUpFromPreviousRound();
@@ -89,7 +88,7 @@ GameFlowController.prototype.playNextRound = function()
 
 
 /**
- * 
+ * Switched game round turn to the next player in the list.
  */
 GameFlowController.prototype.switchToNextPlayer = function()
 {
@@ -102,12 +101,21 @@ GameFlowController.prototype.switchToNextPlayer = function()
 };
 
 
+/**
+ * Checking if this round is over.
+ * @returns
+ */
 GameFlowController.prototype.checkRoundOver = function()
 {
 	return this.model.players.didAllPlayersFinishGame();
 };
 
-
+/**
+ * Sets new Active player, de-activate previously active player.
+ * And if all players finish their turns switch turn to the DEALER.
+ * 
+ * @param newActivePlayer
+ */
 GameFlowController.prototype.setActivePlayer = function( newActivePlayer )
 {
 	// set previous player to inactive
@@ -143,6 +151,9 @@ GameFlowController.prototype.setActivePlayer = function( newActivePlayer )
 };
 
 
+/**
+ * Dealer turn processing.
+ */
 GameFlowController.prototype.doDealerTurn = function()
 {
 	var dealer = this.model.dealer;

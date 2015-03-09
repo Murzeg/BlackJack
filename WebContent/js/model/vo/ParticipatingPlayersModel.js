@@ -7,6 +7,9 @@ var ParticipatingPlayersModel = function( MAX_PLAYERS_NUMBER )
 	this.MAX_PLAYERS_NUMBER = MAX_PLAYERS_NUMBER;
 };
 
+/**
+ * @returns {Player object} Return first player from the Array. 
+ */
 ParticipatingPlayersModel.prototype.getStartingPlayer = function()
 {
 	if( this.players.length )
@@ -15,7 +18,14 @@ ParticipatingPlayersModel.prototype.getStartingPlayer = function()
 		return null;
 };
 
-
+/**
+ * Retrieves next player from the list to the player specified.
+ * 
+ * If there are no more players available, return 'null'.
+ *   
+ * @param currentPlayer
+ * @returns
+ */
 ParticipatingPlayersModel.prototype.getNextToPlayer = function( currentPlayer )
 {
 	var playerIndex = this.players.indexOf( currentPlayer );
@@ -28,6 +38,15 @@ ParticipatingPlayersModel.prototype.getNextToPlayer = function( currentPlayer )
 		return null;
 };
 
+/**
+ * Retrieves next player from the list to the player specified.
+ * 
+ * If there are no more players available NEXT to this player, then
+ * return Previous player.
+ * 
+ * @param currentPlayer
+ * @returns
+ */
 ParticipatingPlayersModel.prototype.getNextAvailablePlayer = function( currentPlayer )
 {
 	var playerIndex = this.players.indexOf( currentPlayer );
@@ -40,7 +59,10 @@ ParticipatingPlayersModel.prototype.getNextAvailablePlayer = function( currentPl
 		return this.players[ playerIndex - 2 ];
 };
 
-
+/**
+ * Delete player specified.
+ * @param playerToDelete
+ */
 ParticipatingPlayersModel.prototype.deletePlayer = function( playerToDelete )
 {
 	// do not delete player if he/she is the last one
@@ -81,7 +103,10 @@ ParticipatingPlayersModel.prototype.addPlayer = function()
 	}
 };
 
-
+/**
+ * Determines if the 'MaximumPlayersCount' has been reached.
+ * @returns {Boolean}
+ */
 ParticipatingPlayersModel.prototype.wasMaximumPlayersCountReached = function()
 {
 	return this.players.length == this.MAX_PLAYERS_NUMBER;
@@ -95,7 +120,10 @@ ParticipatingPlayersModel.prototype.getPlayersGroup = function()
 	return this.players;
 };
 
-
+/**
+ * Checking if all the players finished the game with any result ( WIN | LOSE )
+ * @returns {Boolean}
+ */
 ParticipatingPlayersModel.prototype.didAllPlayersFinishGame = function()
 {
 	var currentPlayer;
@@ -114,6 +142,9 @@ ParticipatingPlayersModel.prototype.didAllPlayersFinishGame = function()
 };
 
 
+/**
+ * Set each player result to be LOSE.
+ */
 ParticipatingPlayersModel.prototype.setAllPlayersResultToLose = function()
 {
 	var currentPlayer;
@@ -125,7 +156,9 @@ ParticipatingPlayersModel.prototype.setAllPlayersResultToLose = function()
 	}
 };
 
-
+/**
+ * Set each AVAILABLE (player whom result (WIN | LOSE) hasn't been set before) player result to be WIN.
+ */
 ParticipatingPlayersModel.prototype.setAllAvailablePlayersResultToWin = function()
 {
 	var currentPlayer;

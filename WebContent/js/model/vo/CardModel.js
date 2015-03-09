@@ -93,7 +93,9 @@ CardModel.prototype.getCardSuitSymbol = function()
     return suitName;
 };
 
-
+/**
+ * @returns {String} Suit color, depending on suit type.
+ */
 CardModel.prototype.getSuitColor = function()
 {
 	if( this.suit == CardSuits.clubs || this.suit == CardSuits.hearts )
